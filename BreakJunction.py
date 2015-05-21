@@ -326,7 +326,7 @@ Quit_button = Tkinter.Button(controlFrame, text = "SAVE AND QUIT", command = qui
 Quit_button.grid(column = 1, row = 9, ipady = 10, ipadx = 5)
 
 # Initialize the instruments. Calibrate if necessary.
-initializeInstruments(calibrate = False)
+initializeInstruments(vsource_gain = 1, vsource_offset = 0)
 
 # Start the measurement program loop (initially suppressed by stopExpLoop = True)
 root.after(1, exploop)

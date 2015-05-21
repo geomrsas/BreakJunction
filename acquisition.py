@@ -20,13 +20,14 @@ gain = 1
 offset = 0
 
 ### This must be run before using the other functions
-def initializeInstruments(calibrate):
+def initializeInstruments(vsource_gain = 1, vsource_offset = 0):
 	global vsource, vmeter
 	vsource = ch6VoltageSource(usb_resource = 'USB0::0x3923::0x7166::01300DB9::RAW')
 	vmeter = DM34410A(gpib_board = 0, gpib_pad = 12, gpib_sad = 0)
 	
-	if calibrate:
-		calib()
+	global gain, offset
+	gain = vsource_gain
+	offset = vsource_offset
 
 ### At the end of the program this module is used, one should disconnect the instruments
 ### so that they can be used in another application later
@@ -48,17 +49,17 @@ def setVoltage(voltage):
 
 ### Attach a direct line from the Voltage Source Port to the Voltmeter
 ### before running this.
-def calib():
+def calibrate():
 	setVoltage(0)
 	vmean = []
 	for i in range(10):
 		vmean.append( readVoltage() )
 		time.sleep(0.1)
-	offset = -float(sum(vmean))/float(len(vmean)
+	print( -float(sum(vmean))/float(len(vmean)) )
 	
 	setVoltage(1)
 	vmean = []
 	for i in range(10):
 		vmean.append( readVoltage() )
 		time.sleep(0.1)
-	gain = float(1)/float(readVoltage())
+	print( float(1)/float(readVoltage()) )
