@@ -8,21 +8,21 @@ def plotData(T, V, I, G, steppingSubFig, conductanceSubFig, plotObject):
 
 	# Provide Labels for stepping subfigure
 	steppingSubFig.set_title("Source Stepping")
-	steppingSubFig.set_xlabel("Steps")
-	steppingSubFig.set_ylabel("Source Output (V)")
+	steppingSubFig.set_xlabel("Applied Voltage (V)")
+	steppingSubFig.set_ylabel("Current Measured (Amps)")
 	steppingSubFig.grid()
 
 	# Provide Labels for conductace subfigure
 	conductanceSubFig.set_title("Conductance")
-	conductanceSubFig.set_xlabel("Time (s)")
+	conductanceSubFig.set_xlabel("Steps")
 	conductanceSubFig.set_ylabel("Conductance (S)")
 	conductanceSubFig.grid()
 
 	# Plot data on stepping subfigure
-	steppingSubFig.plot(range(len(V)), V, '-ro')
+	steppingSubFig.plot(V, I, '-ro')
 
 	# Plot data on conductance subfigure
-	conductanceSubFig.plot(T, G, '-bs')
+	conductanceSubFig.plot(range(len(V)), G, '-bs')
 
 	# Format the stepping subfigure
 	steppingSubFig.autoscale(enable=True, axis='both', tight='True')
