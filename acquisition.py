@@ -19,8 +19,8 @@ vmeter = object
 
 ### The 6 channel voltage source ports need a bit of calibration before use.
 ### These global variables will store the gain and offset used.
-offset = 0	#0.000133283954193
-gain = 1	#1.00158935604
+offset = 0.000133283954193
+gain = 1.00158935604
 
 ### This must be run before using the other functions
 def initializeInstruments(vsource_gain = 1, vsource_offset = 0):
@@ -39,14 +39,14 @@ def deinitializeInstruments():
 ### Get reading from the Voltage Meter (DOES NOT INCLUDE SCALING FROM AMPLIFIER)
 def readVoltage():
 	reading = vmeter.resources['reading'].value.value 	## The value is given in volts.
-	time.sleep(0.02)
+	time.sleep(0.05)
 	return float(reading)
 
 ### Set Voltage on the Voltage Source (in Volts please)
 def setVoltage(voltage):
 	v = offset + gain * float(voltage) 			# Just in case you entered some integer
 	vsource.ports[0].voltage = Quantity(voltage,'V')
-	time.sleep(0.02)
+	time.sleep(0.05)
 
 ### Attach a direct line from the Voltage Source Port to the Voltmeter before running this.
 def calibrate():
